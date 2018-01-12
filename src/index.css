@@ -3,3 +3,28 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+/*common*/
+.text-left{text-align: left;}
+.text-center{text-align: center;}
+.text-right{text-align: right;}
+.text-justify{text-align: justify}
+.text-nowrap{white-space: nowrap;}
+
+
+/*filter*/
+.custom_sel{
+	padding: 10px;
+}
+.custom_sel h2{font-size: 36px;}
+.custom_sel .numCenter{
+	width: 100%;
+	position: absolute;
+	top:50%;
+	margin-top: -15px;
+	margin-left: -20px;
+}
+.custom_sel .numCenter span{
+	font-size : 50px;
+	color : black;
+	font-weight: bold;
+}
