@@ -6,13 +6,17 @@ class App extends Component {
   constructor(props){
       super(props);
       this.state={
-          children : [
+          children : [//根据不同的数据生成不同的options 
             <Option key='0'>11</Option>,
             <Option key='1'>22</Option>,
             <Option key='2'>33</Option>,
           ]
       };
       this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount (){
+   
   }
   handleChange(value) {
       console.log(`selected ${value}`);
@@ -26,15 +30,15 @@ class App extends Component {
            <div style={{ background: '#ECECEC', padding: '30px' }}>
             <Row gutter={16}>
               <Col span={12}>
-                  <Card style={{'minHeight':'450px'}} title="潜客--数量" bordered={false}>
+                  <Card  style={{'minHeight':'350px','height':`550px`}} title="潜客--数量" bordered={false}>
                     <p className='text-center numCenter' >
                          <span>1234225万</span>
                     </p>
                   </Card>
               </Col>
               <Col span={12}>
-                  <Card style={{'minHeight':'450px'}} title="潜客--筛选" bordered={false} >
-
+                  <Card title="潜客--筛选" bordered={false} >
+                   <div style={{'minHeight':'350px','height':'446px','overflow':'auto'}}>
                     <div>
                         <div>注册时间</div>
                         <Select
@@ -46,8 +50,6 @@ class App extends Component {
                               {children}
                         </Select>
                     </div>
-
-
                     <div>
                         <div>省份</div>
                         <Select
@@ -60,7 +62,106 @@ class App extends Component {
                         </Select>
                     </div>
                    
-                   
+                      <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                       <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                       <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                       <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                       <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                         <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                         <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                         <div>
+                        <div>省份</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                       <div>
+                        <div>省份10</div>
+                        <Select
+                              mode="multiple"
+                              style={{ width: '100%' }}
+                              placeholder="Please select"
+                              onChange={handleChange}
+                            >
+                              {children}
+                        </Select>
+                    </div>
+                  </div>
                    </Card>
                </Col>
               </Row>
