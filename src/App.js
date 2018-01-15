@@ -48,7 +48,6 @@ class App extends Component {
       this.onHandleChange = this.onHandleChange.bind(this);
       this.getFilterData = this.getFilterData.bind(this);
   }
-
   componentDidMount (){
     //向后台请求数据 请求所有的数据  引入环境变量
     let obj={};//向后台发送空数据相当于是所有

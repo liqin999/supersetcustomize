@@ -38,7 +38,7 @@ export default class SelectItem extends  Component{
                       {children}
                      </Select>
               </div>
-  	)
+  	    )
 
   }
 
