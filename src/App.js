@@ -11,6 +11,7 @@ class App extends Component {
         totalNum:132456789,
         selectList:[
             {
+              id:0,
               title:'注册时间',//标题
               options:[//下拉选项
                   {
@@ -26,16 +27,17 @@ class App extends Component {
               ]
 
             },{
+               id:1,
                title:'省份',
                options:[
                   {
-                    id:0,
+                    id:3,
                     val:'北京'
                   },{
-                     id:1,
+                     id:4,
                      val:'上海'
                   },{
-                     id:2,
+                     id:5,
                      val:'南京'
                   }
               ]
@@ -44,19 +46,44 @@ class App extends Component {
        
       };
 
-      this.handleChange = this.handleChange.bind(this);
+      this.onHandleChange = this.onHandleChange.bind(this);
+      this.getFilterData = this.getFilterData.bind(this);
   }
 
   componentDidMount (){
-    //向后台请求数据
-    console.log($)
+    //向后台请求数据 请求所有的数据  引入环境变量
+    let obj={//项后台发送的格式
+        parentId:0,
+        childrenId:''
+    };
+    this.getFilterData(obj);
   }
-  handleChange(value) {
-      console.log(`selected ${value}`);
+
+  getFilterData(obj){//obj代表不同下拉的请求的参数 
+    let that = this;
+      $.ajax({
+          url:'https://easy-mock.com/mock/599d1648059b9c566dcc4206/house/gettotalnum',
+          type:'post',
+          data:obj,
+          success:function(result){
+              that.setState({
+                 totalNum:result.data.total
+              })
+          }
+      })
+  }
+
+  onHandleChange(obj) {
+      console.log(obj)
+      console.log('子组件返回的数据:'+obj.parentId);
+      if(typeof obj.childrenId == 'object'){
+          obj.childrenId = JSON.stringify(obj.childrenId)
+      }
+      this.getFilterData(obj);
   }
   render() {
     let {totalNum} = this.state;
-    let {handleChange} = this;
+    let {onHandleChange} = this;
     return (
       <div className="custom_sel">
           <h2>定制页面<Icon type="star-o" style={{'marginLeft':'10px'}} /></h2>
@@ -75,7 +102,7 @@ class App extends Component {
                     {
                       this.state.selectList.map((item,index)=>{
                           return (
-                              <SelectItem key={index} {...{item,handleChange}}/>
+                              <SelectItem key={index} {...{item,onHandleChange}}/>
                           )
                       })
                     }
