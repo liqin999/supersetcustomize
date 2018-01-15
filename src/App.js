@@ -8,8 +8,9 @@ class App extends Component {
   constructor(props){
       super(props);
       this.state={
-        totalNum:132456789,
-        selectList:[
+        totalNum:132456789,// 查询的数据量
+        postDataObj:{},//向后台发送的数据对象
+        selectList:[//后端下拉的列表
             {
               id:0,
               title:'注册时间',//标题
@@ -43,19 +44,14 @@ class App extends Component {
               ]
             }
         ]
-       
       };
-
       this.onHandleChange = this.onHandleChange.bind(this);
       this.getFilterData = this.getFilterData.bind(this);
   }
 
   componentDidMount (){
     //向后台请求数据 请求所有的数据  引入环境变量
-    let obj={//项后台发送的格式
-        parentId:0,
-        childrenId:''
-    };
+    let obj={};//向后台发送空数据相当于是所有
     this.getFilterData(obj);
   }
 
@@ -75,14 +71,11 @@ class App extends Component {
 
   onHandleChange(obj) {
       console.log(obj)
-      console.log('子组件返回的数据:'+obj.parentId);
-      if(typeof obj.childrenId == 'object'){
-          obj.childrenId = JSON.stringify(obj.childrenId)
-      }
+      console.log('子组件返回的数据:'+obj);
       this.getFilterData(obj);
   }
   render() {
-    let {totalNum} = this.state;
+    let {totalNum,postDataObj} = this.state;
     let {onHandleChange} = this;
     return (
       <div className="custom_sel">
@@ -102,7 +95,7 @@ class App extends Component {
                     {
                       this.state.selectList.map((item,index)=>{
                           return (
-                              <SelectItem key={index} {...{item,onHandleChange}}/>
+                              <SelectItem key={index} {...{item,onHandleChange,postDataObj}}/>
                           )
                       })
                     }
