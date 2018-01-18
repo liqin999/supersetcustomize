@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Icon ,Card,Col, Row ,Select } from 'antd';
 import { BrowserRouter, Route, Link ,Switch,Redirect} from "react-router-dom";
 import SelectItem from "./SelectItem.js";
+import {getDomain,mockData} from './interface';
 var $ = require("jquery");
 const Option = Select.Option;
 class App extends Component {
   constructor(props){
       super(props);
       this.state={
-        totalNum:132456789,// 查询的数据量
+        totalNum:Number(),// 查询的数据量
         postDataObj:{},//向后台发送的数据对象
         selectList:[]//后端下拉的列表
       };
@@ -16,57 +17,37 @@ class App extends Component {
       this.getFilterData = this.getFilterData.bind(this);
   }
   componentDidMount (){
-     let selectList = [//后端下拉的列表
-            {
-              id:0,
-              title:'注册时间',//标题
-              options:[//下拉选项
-                  {
-                    val:'2016'
-                  },{
-                     
-                     val:'2017'
-                  },{
-                     val:'2018'
-                  }
-              ]
-
-            },{
-               id:1,
-               title:'省份',
-               options:[
-                  {
-                    
-                    val:'北京'
-                  },{
-                    
-                     val:'上海'
-                  },{
-                     val:'南京'
-                  }
-              ]
-            }
-        ];
-   
-     //数据组装根据val组件id  数组的forEach
-     selectList.forEach((item,index)=>{//使用数组的forEach遍历
-          item.options.forEach((_item,_index)=>{
-             _item.id = _item.val
-         })
-      })
-     
-    this.setState({
-       selectList
-    });
+    //初始化的时候默认显示右侧的下拉列表
+     this.getselectlist();
     //向后台请求数据 请求所有的数据  引入环境变量
     let obj={};//向后台发送空数据相当于是所有
     this.getFilterData(obj);
   }
 
-  getFilterData(obj){//obj代表不同下拉的请求的参数 
+  getselectlist(){//获得下拉数据
     let that = this;
       $.ajax({
-          url:'https://easy-mock.com/mock/599d1648059b9c566dcc4206/house/gettotalnum',
+          url:mockData.getselectlist,
+          type:'get',
+          data:{},
+          success:function(result){
+              let selectList = result.data;
+               selectList.forEach((item,index)=>{//使用数组的forEach遍历
+                    item.options.forEach((_item,_index)=>{
+                       _item.id = _item.val
+                   })
+                });
+                that.setState({
+                   selectList
+                });
+          }
+      })
+  }
+
+  getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
+    let that = this;
+      $.ajax({
+          url:mockData.gettotalnum,
           type:'post',
           data:obj,
           success:function(result){
@@ -78,8 +59,6 @@ class App extends Component {
   }
 
   onHandleChange(obj) {
-     // console.log(obj)
-     
       this.getFilterData(obj);
   }
   render() {
