@@ -10,19 +10,23 @@ class App extends Component {
       this.state={
         totalNum:132456789,// 查询的数据量
         postDataObj:{},//向后台发送的数据对象
-        selectList:[//后端下拉的列表
+        selectList:[]//后端下拉的列表
+      };
+      this.onHandleChange = this.onHandleChange.bind(this);
+      this.getFilterData = this.getFilterData.bind(this);
+  }
+  componentDidMount (){
+     let selectList = [//后端下拉的列表
             {
               id:0,
               title:'注册时间',//标题
               options:[//下拉选项
                   {
-                    id:0,
                     val:'2016'
                   },{
-                     id:1,
+                     
                      val:'2017'
                   },{
-                     id:2,
                      val:'2018'
                   }
               ]
@@ -32,23 +36,28 @@ class App extends Component {
                title:'省份',
                options:[
                   {
-                    id:3,
+                    
                     val:'北京'
                   },{
-                     id:4,
+                    
                      val:'上海'
                   },{
-                     id:5,
                      val:'南京'
                   }
               ]
             }
-        ]
-      };
-      this.onHandleChange = this.onHandleChange.bind(this);
-      this.getFilterData = this.getFilterData.bind(this);
-  }
-  componentDidMount (){
+        ];
+   
+     //数据组装根据val组件id  数组的forEach
+     selectList.forEach((item,index)=>{//使用数组的forEach遍历
+          item.options.forEach((_item,_index)=>{
+             _item.id = _item.val
+         })
+      })
+     
+    this.setState({
+       selectList
+    });
     //向后台请求数据 请求所有的数据  引入环境变量
     let obj={};//向后台发送空数据相当于是所有
     this.getFilterData(obj);
@@ -69,13 +78,14 @@ class App extends Component {
   }
 
   onHandleChange(obj) {
-      console.log(obj)
-      console.log('子组件返回的数据:'+obj);
+     // console.log(obj)
+     
       this.getFilterData(obj);
   }
   render() {
     let {totalNum,postDataObj} = this.state;
     let {onHandleChange} = this;
+  
     return (
       <div className="custom_sel">
           <h2>定制页面<Icon type="star-o" style={{'marginLeft':'10px'}} /></h2>
