@@ -6,9 +6,11 @@ export default class SelectItem extends  Component{
       super(props);
       this.state={
           obj:{}
+        
       };
       this.handleChange= this.handleChange.bind(this);
   }
+
   handleChange(value) {
        let {postDataObj} = this.props;
        postDataObj[this.props.item.id] = value;//按照父集和子集的id进行存储
@@ -25,12 +27,13 @@ export default class SelectItem extends  Component{
           return (
              <Option key={el.id}>{el.val}</Option>
           )
-     })
+     });
+
   	return (
   	        <div data-id={item.id}>
                    <div>{item.title}</div>
                     <Select
-                     mode="multiple"
+                      mode={item.isRadio ? '' : 'multiple'}
                      style={{ width: '100%' }}
                       placeholder="Please select"
                       onChange={handleChange}

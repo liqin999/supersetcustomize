@@ -17,11 +17,8 @@ class App extends Component {
       this.getFilterData = this.getFilterData.bind(this);
   }
   componentDidMount (){
-    //初始化的时候默认显示右侧的下拉列表
-     this.getselectlist();
-    //向后台请求数据 请求所有的数据  引入环境变量
-    let obj={};//向后台发送空数据相当于是所有
-    // this.getFilterData(obj);
+    //初始化的时候默认显示右侧的下拉列表和默认的数据
+     this.getselectlist();   
   }
 
   getselectlist(){//获得下拉数据
@@ -45,7 +42,6 @@ class App extends Component {
                        _item.id = _item.val
                    })
                 });
-
                let totalNum = result.oldCustData.data.total;
                that.setState({
                    totalNum,
@@ -57,12 +53,13 @@ class App extends Component {
 
   getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
     let that = this;
+     obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
       $.ajax({
          //真实地址  getDomain() + '/dm/jdbc/allTables',
          //测试地址   mockData.gettotalnum,
           url:mockData.gettotalnum,
           type:'post',
-          data:obj,
+          data:{'params':obj},
           success:function(result){
               that.setState({
                  totalNum:result.data.total
