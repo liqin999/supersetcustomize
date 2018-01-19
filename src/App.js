@@ -22,14 +22,17 @@ class App extends Component {
   }
 
   getselectlist(){//获得下拉数据
+    console.log('地址'+getDomain() + '/customization/kylin/init');
     let that = this;
       $.ajax({
-         //真实地址  getDomain() + 'customization/kylin/init',
+         //真实地址  getDomain() + '/customization/kylin/init',
          //测试地址   mockData.initData,
-          url:mockData.initData,
-          type:'get',
-          data:{},
+          url: getDomain() + '/customization/kylin/init',
           success:function(result){
+            if(typeof(result) == 'string'){
+                result = JSON.parse(result);
+            };
+            console.log(result);
               let selectList = result.oldCustData.selectList;
                selectList.forEach((item,index)=>{//使用数组的forEach遍历
                     item.options.forEach((_item,_index)=>{
@@ -54,13 +57,25 @@ class App extends Component {
   getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
     let that = this;
      obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
+    
+      for(var attr in obj){
+        if(obj[attr].length == 0){
+          delete obj[attr]
+        }
+      };
+     /*obj = obj.replace(/\\/g,'');*/
       $.ajax({
-         //真实地址  getDomain() + '/dm/jdbc/allTables',
+         //真实地址   getDomain() + '/customization/kylin/query',
          //测试地址   mockData.gettotalnum,
-          url:mockData.gettotalnum,
+          url:getDomain() + '/customization/kylin/query',
           type:'post',
-          data:{'params':obj},
+          data:{
+            'params':obj
+          },
           success:function(result){
+           if(typeof(result) == 'string'){
+                result = JSON.parse(result);
+            };
               that.setState({
                  totalNum:result.data.total
               })
