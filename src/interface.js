@@ -21,6 +21,7 @@ const environment = {
 
  //模拟的假数据
  let mockData = {
+ 	   initData:'https://easy-mock.com/mock/599d1648059b9c566dcc4206/house/customization/kylin/init' ,
        gettotalnum : 'https://easy-mock.com/mock/599d1648059b9c566dcc4206/house/gettotalnum',
        getselectlist : 'https://easy-mock.com/mock/599d1648059b9c566dcc4206/house/getselectlist'
  };

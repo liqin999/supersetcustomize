@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Icon ,Card,Col, Row ,Select } from 'antd';
 import { BrowserRouter, Route, Link ,Switch,Redirect} from "react-router-dom";
 import SelectItem from "./SelectItem.js";
-import {getDomain,mockData} from './interface';
+import {getDomain,mockData,initData} from './interface';
 var $ = require("jquery");
 const Option = Select.Option;
 class App extends Component {
@@ -21,24 +21,35 @@ class App extends Component {
      this.getselectlist();
     //向后台请求数据 请求所有的数据  引入环境变量
     let obj={};//向后台发送空数据相当于是所有
-    this.getFilterData(obj);
+    // this.getFilterData(obj);
   }
 
   getselectlist(){//获得下拉数据
     let that = this;
       $.ajax({
-          url:mockData.getselectlist,
+         //真实地址  getDomain() + 'customization/kylin/init',
+         //测试地址   mockData.initData,
+          url:mockData.initData,
           type:'get',
           data:{},
           success:function(result){
-              let selectList = result.data;
+              let selectList = result.oldCustData.selectList;
                selectList.forEach((item,index)=>{//使用数组的forEach遍历
                     item.options.forEach((_item,_index)=>{
+                        if(_item.val == null){
+                           _item.val = 'null';
+                        }
+                        if(_item.val == ''){
+                           _item.val = ' '
+                        }
                        _item.id = _item.val
                    })
                 });
-                that.setState({
-                   selectList
+
+               let totalNum = result.oldCustData.data.total;
+               that.setState({
+                   totalNum,
+                  selectList
                 });
           }
       })
@@ -47,6 +58,8 @@ class App extends Component {
   getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
     let that = this;
       $.ajax({
+         //真实地址  getDomain() + '/dm/jdbc/allTables',
+         //测试地址   mockData.gettotalnum,
           url:mockData.gettotalnum,
           type:'post',
           data:obj,
