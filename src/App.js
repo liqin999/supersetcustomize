@@ -56,18 +56,19 @@ class App extends Component {
 
   getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
     let that = this;
-     obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
-    
       for(var attr in obj){
         if(obj[attr].length == 0){
           delete obj[attr]
         }
       };
+     obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
+      
+    
      /*obj = obj.replace(/\\/g,'');*/
       $.ajax({
          //真实地址   getDomain() + '/customization/kylin/query',
          //测试地址   mockData.gettotalnum,
-          url:getDomain() + '/customization/kylin/query',
+          url: getDomain() + '/customization/kylin/query',
           type:'post',
           data:{
             'params':obj
@@ -96,14 +97,14 @@ class App extends Component {
            <div style={{ background: '#ECECEC', padding: '30px' }}>
             <Row gutter={16}>
               <Col span={12}>
-                  <Card  style={{'minHeight':'350px','height':`550px`}} title="潜客--数量" bordered={false}>
+                  <Card  style={{'minHeight':'350px','height':`550px`}} title="老客--数量" bordered={false}>
                     <p className='text-center numCenter' >
                          <span>{totalNum}</span>
                     </p>
                   </Card>
               </Col>
               <Col span={12}>
-                  <Card title="潜客--筛选" bordered={false} >
+                  <Card title="老客--筛选" bordered={false} >
                    <div style={{'minHeight':'350px','height':'446px','overflow':'auto'}}>
                     {
                       this.state.selectList.map((item,index)=>{
