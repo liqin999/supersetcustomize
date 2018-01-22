@@ -12,8 +12,11 @@ export default class SelectItem extends  Component{
   }
 
   handleChange(value) {
-       let {postDataObj} = this.props;
-      
+      //处理单选和多选字段的统一
+      if(typeof(value) == 'string'){
+          value = new Array(value);
+      }
+      let {postDataObj} = this.props;
        postDataObj[this.props.item.id] = value;//按照父集和子集的id进行存储
        if(typeof postDataObj[this.props.item.id] == 'object'){
              postDataObj[this.props.item.id] = postDataObj[this.props.item.id];

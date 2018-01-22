@@ -22,7 +22,6 @@ class App extends Component {
   }
 
   getselectlist(){//获得下拉数据
-    console.log('地址'+getDomain() + '/customization/kylin/init');
     let that = this;
       $.ajax({
          //真实地址  getDomain() + '/customization/kylin/init',
@@ -32,7 +31,6 @@ class App extends Component {
             if(typeof(result) == 'string'){
                 result = JSON.parse(result);
             };
-            console.log(result);
               let selectList = result.oldCustData.selectList;
                selectList.forEach((item,index)=>{//使用数组的forEach遍历
                     item.options.forEach((_item,_index)=>{
