@@ -38,6 +38,7 @@ export default class SelectItem extends  Component{
   	        <div data-id={item.id}>
                    <div>{item.title}</div>
                     <Select
+                      allowClear = {true}
                       mode={item.isRadio ? '' : 'multiple'}
                      style={{ width: '100%' }}
                       placeholder="Please select"

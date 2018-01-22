@@ -53,16 +53,17 @@ class App extends Component {
   }
 
   getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
-    let that = this;
-      for(var attr in obj){
-        if(obj[attr].length == 0){
-          delete obj[attr]
+     let that = this;
+     for(var attr in obj){
+         if (obj && obj[attr]) {
+          if(obj[attr].length == 0){
+            delete obj[attr]
+          }
         }
       };
-     obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
       
-    
-     /*obj = obj.replace(/\\/g,'');*/
+      obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
+      
       $.ajax({
          //真实地址   getDomain() + '/customization/kylin/query',
          //测试地址   mockData.gettotalnum,
