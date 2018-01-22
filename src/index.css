@@ -28,3 +28,7 @@ body {
 	color : black;
 	font-weight: bold;
 }
+/*下拉的清楚按钮默认显示*/
+.ant-select-selection__clear{
+	opacity:1;
+}
