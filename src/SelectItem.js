@@ -35,12 +35,13 @@ export default class SelectItem extends  Component{
      });
 
   	return (
-  	        <div data-id={item.id}>
+  	        <div data-id={item.id} style={{position: 'relative'}} id='filterSelect'>
                    <div>{item.title}</div>
                     <Select
+                      getPopupContainer={() => document.getElementById('filterSelect')}
                       allowClear = {true}
                       mode={item.isRadio ? '' : 'multiple'}
-                     style={{ width: '100%' }}
+                      style={{ width: '100%' }}
                       placeholder="Please select"
                       onChange={handleChange}
                       >

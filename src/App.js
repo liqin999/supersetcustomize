@@ -53,6 +53,7 @@ class App extends Component {
   }
 
   getFilterData(obj){//obj代表不同下拉的请求的参数 左侧查询数量
+   
      let that = this;
      for(var attr in obj){
          if (obj && obj[attr]) {
