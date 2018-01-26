@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon ,Card,Col, Row ,Select ,Button , Switch ,Popover} from 'antd';
+import { Icon ,Card,Col, Row ,Select ,Button , Switch  ,Tooltip } from 'antd';
 import { BrowserRouter, Route, Link ,Switch as SwitchRoute,Redirect} from "react-router-dom";
 import SelectItem from "./SelectItem.js";
 import {getDomain,mockData,initData} from './interface';
@@ -127,9 +127,9 @@ class App extends Component {
                   <div style={{'marginBottom':'10px'}}>
                   <span style={{'marginRight':'20px'}}>
                     是否实时更新数据：
-                     <Popover content={'当网速不好的时候关闭此开关，选择筛选项后点击右侧查询按钮'}>
+                    <Tooltip title="当网速不好的时候关闭此开关，选择筛选项后，点击右侧查询按钮">
                        <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} defaultChecked onChange={onSwitchChange} />
-                     </Popover>
+                    </Tooltip>
                   </span>
                      
                   <Button icon="search" onClick={this.onSearchFinal}>查询</Button>
