@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon ,Card,Col, Row ,Select } from 'antd';
+import { Icon ,Card,Col, Row ,Select ,Button } from 'antd';
 import { BrowserRouter, Route, Link ,Switch,Redirect} from "react-router-dom";
 import SelectItem from "./SelectItem.js";
 import {getDomain,mockData,initData} from './interface';
@@ -15,6 +15,8 @@ class App extends Component {
       };
       this.onHandleChange = this.onHandleChange.bind(this);
       this.getFilterData = this.getFilterData.bind(this);
+      this.onSearchFinal = this.onSearchFinal.bind(this);
+
   }
   componentDidMount (){
     //初始化的时候默认显示右侧的下拉列表和默认的数据
@@ -26,7 +28,7 @@ class App extends Component {
       $.ajax({
          //真实地址  getDomain() + '/customization/kylin/init',
          //测试地址   mockData.initData,
-          url: getDomain() + '/customization/kylin/init',
+          url:  mockData.initData,
           success:function(result){
             if(typeof(result) == 'string'){
                 result = JSON.parse(result);
@@ -62,13 +64,11 @@ class App extends Component {
           }
         }
       };
-      
       obj = typeof(obj) == 'object' ? JSON.stringify(obj) : obj;
-      
       $.ajax({
          //真实地址   getDomain() + '/customization/kylin/query',
          //测试地址   mockData.gettotalnum,
-          url: getDomain() + '/customization/kylin/query',
+          url: mockData.gettotalnum,
           type:'post',
           data:{
             'params':obj
@@ -85,7 +85,13 @@ class App extends Component {
   }
 
   onHandleChange(obj) {
-      this.getFilterData(obj);
+    this.setState({
+      postDataObj:Object.assign({},obj)
+    });
+   // this.getFilterData(this.state.postDataObj);将实时刷新改成点击统一请求
+  }
+  onSearchFinal(){
+     this.getFilterData(this.state.postDataObj)
   }
   render() {
     let {totalNum,postDataObj} = this.state;
@@ -93,11 +99,11 @@ class App extends Component {
   
     return (
       <div className="custom_sel">
-          <h2>定制页面<Icon type="star-o" style={{'marginLeft':'10px'}} /></h2>
+          <h2 style={{'fontSize':'24px'}}>定制页面<Icon type="star-o" style={{'marginLeft':'10px'}} /></h2>
            <div style={{ background: '#ECECEC', padding: '30px' }}>
             <Row gutter={16}>
               <Col span={12}>
-                  <Card  style={{'minHeight':'350px','height':`550px`}} title="老客--数量" bordered={false}>
+                  <Card  style={{'minHeight':'360px','height':`590px`}} title="老客--数量" bordered={false}>
                     <p className='text-center numCenter' >
                          <span>{totalNum}</span>
                     </p>
@@ -105,7 +111,10 @@ class App extends Component {
               </Col>
               <Col span={12}>
                   <Card title="老客--筛选" bordered={false} >
-                   <div style={{'minHeight':'350px','height':'446px','overflow':'auto'}}>
+                  <div style={{'marginBottom':'10px'}}>
+                     <Button icon="search" onClick={this.onSearchFinal}>查询</Button>
+                  </div>
+                   <div style={{'minHeight':'350px','height':'445px','overflow':'auto'}}>
                     {
                       this.state.selectList.map((item,index)=>{
                           return (
